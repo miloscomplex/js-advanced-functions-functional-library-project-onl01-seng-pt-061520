@@ -31,16 +31,15 @@ const fi = (function() {
       return newArray
     },
 
-    reduce: function() {
+    reduce: function(collection, callback, acc) {
+    const currentValue = 0
+    collection.forEach( element => {
+      currentValue = acc + element
+    })
 
-    },
+    return callback(acc, currentValue, collection)
 
-    functions: function() {
-
-    },
-
-
-  }
+    }
 })()
 
 fi.libraryMethod()
