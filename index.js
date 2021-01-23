@@ -32,14 +32,87 @@ const fi = (function() {
     },
 
     reduce: function(collection, callback, acc) {
-    const currentValue = 0
-    collection.forEach( element => {
-      currentValue = acc + element
-    })
+    console.log("acc= " + acc + "collection=" + collection)
+    console.log("callback= " + callback);
+    let val = 0
+    let currentValue = collection.reduce(callback)
+    return currentValue
 
-    return callback(acc, currentValue, collection)
+    },
 
+    find: function (collection, predicate) {
+    const found = collection.find(element => predicate(element))
+    return found
+    },
+
+    filter: function (collection, predicate) {
+      const found = collection.filter(element => predicate(element))
+      return found
+    },
+
+    size: function (collection) {
+      let length = Object.keys(collection).length
+      return length
+    },
+
+    first: function (array, n) {
+      if (!!n) {
+        return array.slice(0,n)
+      } else {
+        return array[0]
+      }
+    },
+
+    last: function (array, n) {
+      if (!!n) {
+        return array.slice(array.length - n)
+      } else {
+        return array[array.length - 1]
+      }
+    },
+
+    compact: function (array) {
+      let truthy = array.filter(element => !!element)
+      return truthy
+    },
+
+    sortBy: function (array, callback) {
+      let sorted = array.map(element => element)
+      sorted.sort((a,b) => callback(a) - callback(b))
+      return sorted
+    },
+
+    flatten: function (array, shallow=false) {
+      if (shallow === true) {
+        array.flat(2)
+      } else {
+        array.flat(1)
+      }
+      return array
+    },
+
+    uniq: function (array, isSorted, callback) {
+    let arrayUnique = function(array) {
+      return array.filter(function(item, index) {
+        return array.indexOf(item) === index
+      }, callback)
     }
+    let unique = arrayUnique(array)
+    return unique
+    },
+
+    keys: function (object) {
+      return Object.keys(object)
+    },
+
+    values: function (object) {
+      return Object.values(object)
+    },
+
+    functions(object) {
+      return Object.getOwnPropertyNames(object).filter(item => typeof object[item] === 'function')
+    }
+  }
 })()
 
 fi.libraryMethod()
